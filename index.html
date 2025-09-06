@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티 홈페이지</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 이미지와 유사한 폰트 추가 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 기본 폰트 설정 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        /* 로고에 'Do Hyeon' 폰트 적용 (플레이스홀더용) */
+        .font-logo {
+            font-family: 'Do Hyeon', sans-serif;
+        }
+        /* 헤더 상단 고정 및 그림자 효과 */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        /* 지도부 소개용 커스텀 오렌지 색상 */
+        .bg-custom-orange {
+            background-color: #EA580C; /* Tailwind orange-600 */
+        }
+        .text-custom-orange {
+            color: #EA580C;
+        }
+        .border-custom-orange {
+            border-color: #EA580C;
+        }
+        /* 모바일 메뉴 부드러운 전환 효과 */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        #mobile-menu.open {
+            max-height: 600px; /* 메뉴 높이에 맞게 충분한 값 설정 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- 전체 컨테이너 -->
+    <div class="max-w-7xl mx-auto bg-white">
+
+        <!-- 헤더 -->
+        <header class="sticky-header border-b">
+            <!-- 최상단 바 -->
+            <div class="border-b">
+                <div class="container mx-auto px-4 h-12 flex justify-between items-center text-xs sm:text-sm">
+                    <div>
+                        <span class="font-bold text-orange-500">1,120,045명</span>의 동지들과 함께
+                    </div>
+                    <div class="flex items-center space-x-2 sm:space-x-4">
+                        <div class="flex items-center space-x-1 font-semibold">
+                            <span class="flex items-center justify-center w-5 h-5 bg-orange-500 text-white rounded-full text-xs">5</span>
+                            <span>축신두 님</span>
+                        </div>
+                        
+                        <!-- 지갑, 알림, 메시지 아이콘 버튼 (텍스트 제거) -->
+                        <div class="hidden lg:flex items-center space-x-4 text-gray-600">
+                            <a href="#" class="hover:text-orange-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                            </a>
+                            <a href="#" class="hover:text-orange-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                            </a>
+                            <a href="#" class="hover:text-orange-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            </a>
+                        </div>
+
+                        <a href="#" class="text-gray-500 hover:text-gray-800">로그아웃</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 메인 네비게이션 -->
+            <div class="container mx-auto px-4 flex justify-between items-center h-20">
+                <!-- 로고 이미지 크기 수정 -->
+                <a href="#">
+                    <img src="https://rallypoint.kr/assets/imgs/logo1.svg" alt="커뮤니티 로고" class="h-12 sm:h-14">
+                </a>
+                
+                <!-- 데스크톱 네비게이션 및 메뉴 아이콘 -->
+                <div class="hidden lg:flex items-center">
+                    <nav class="flex items-center space-x-10 text-xl font-bold h-full">
+                        <a href="#" class="text-gray-700 hover:text-orange-500 h-full flex items-center">소개</a>
+                        <a href="#" class="text-gray-700 hover:text-orange-500 h-full flex items-center">공지</a>
+                        <a href="#" class="text-gray-700 hover:text-orange-500 h-full flex items-center">자유</a>
+                        <a href="#" class="text-gray-700 hover:text-orange-500 h-full flex items-center">지역</a>
+                        <a href="#" class="text-gray-700 hover:text-orange-500 h-full flex items-center">토론</a>
+                        <a href="#" class="text-gray-700 hover:text-orange-500 h-full flex items-center">대학생</a>
+                        <a href="#" class="text-gray-700 hover:text-orange-500 h-full flex items-center">민원</a>
+                    </nav>
+                    <!-- 햄버거 메뉴 아이콘 -->
+                    <button class="ml-10 p-2">
+                        <svg class="w-8 h-8 text-gray-800" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 모바일 메뉴 버튼 -->
+                <button class="lg:hidden p-2" id="mobile-menu-button">
+                    <svg class="w-8 h-8 text-gray-800" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+             <!-- 모바일 메뉴 (색상 변경 및 전환효과 추가) -->
+            <div id="mobile-menu" class="lg:hidden bg-white border-t">
+                <a href="#" class="block px-5 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50">소개</a>
+                <a href="#" class="block px-5 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50">공지</a>
+                <a href="#" class="block px-5 py-4 text-lg font-semibold text-gray-800 hover:bg-orange-50 hover:text-orange-600">자유</a>
+                <a href="#" class="block px-5 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50">지역</a>
+                <a href="#" class="block px-5 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50">토론</a>
+                <a href="#" class="block px-5 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50">대학생</a>
+                <a href="#" class="block px-5 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50">민원</a>
+                <!-- 모바일용 검색창 -->
+                <div class="p-4 border-t">
+                    <div class="relative">
+                        <input type="text" class="w-full border border-gray-300 bg-white h-10 px-4 pr-10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="검색">
+                        <button type="submit" class="absolute right-0 top-0 mt-2.5 mr-3">
+                            <svg class="text-gray-500 h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 지도부 소개 콘텐츠 -->
+        <main>
+            <div class="container mx-auto p-4 sm:p-6 md:p-8">
+            
+                <!-- 페이지 헤더 -->
+                <header class="bg-custom-orange text-white p-6 sm:p-8 rounded-lg shadow-lg relative overflow-hidden">
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold">시·도당 및 당원협의회</h1>
+                    <!-- 장식용 그래픽 요소 -->
+                    <div class="absolute top-0 right-0 h-full w-32">
+                        <div class="absolute w-48 h-48 bg-white/20 transform -rotate-45 -right-20 top-0"></div>
+                        <div class="absolute w-48 h-48 bg-white/10 transform -rotate-45 -right-12 top-8"></div>
+                    </div>
+                </header>
+
+                <div class="mt-8 space-y-12" id="leadership-sections">
+                    <!-- 지도부 섹션이 여기에 동적으로 추가됩니다. -->
+                </div>
+                
+                <!-- 푸터 -->
+                <footer class="bg-gray-50 text-gray-500 text-xs border-t mt-12 p-8">
+                    <div class="container mx-auto flex flex-col items-center gap-4 sm:flex-row sm:justify-between sm:items-end">
+                          <!-- 소셜 아이콘 -->
+                          <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-gray-600">
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2c-2.717 0-3.056.01-4.122.06-1.065.05-1.79.217-2.428.465a4.898 4.898 0 00-1.772 1.153 4.942 4.942 0 00-1.153 1.772c-.248.638-.415 1.363-.465 2.428C2.01 8.944 2 9.283 2 12s.01 3.056.06 4.122c.05 1.065.217 1.79.465 2.428a4.898 4.898 0 001.153 1.772 4.942 4.942 0 001.772 1.153c.638.248 1.363.415 2.428.465C8.944 21.99 9.283 22 12 22s3.056-.01 4.122-.06c1.065-.05 1.79-.217-2.428-.465a4.898 4.898 0 001.772-1.153 4.942 4.942 0 001.153-1.772c.248-.638-.415-1.363-.465-2.428C21.99 15.056 22 14.717 22 12s-.01-3.056-.06-4.122c-.05-1.065-.217-1.79-.465-2.428a4.898 4.898 0 00-1.153-1.772 4.942 4.942 0 00-1.772-1.153c-.638-.248-1.363-.415-2.428-.465C15.056 2.01 14.717 2 12 2zm0 1.44c2.67 0 2.987.01 4.042.058.975.044 1.504.207 1.857.344.467.182.86.399 1.254.793.393.393.61.787.793 1.254.137.353.3.882.344 1.857.048 1.055.058 1.372.058 4.042s-.01 2.987-.058 4.042c-.044.975-.207 1.504-.344 1.857a3.43 3.43 0 01-.793 1.254 3.43 3.43 0 01-1.254.793c-.353.137-.882.3-1.857.344-1.055.048-1.372.058-4.042.058s-2.987-.01-4.042-.058c-.975-.044-1.504-.207-1.857.344a3.43 3.43 0 01-1.254-.793 3.43 3.43 0 01-.793-1.254c-.137-.353-.3-.882-.344-1.857C3.45 15.013 3.44 14.697 3.44 12s.01-2.987.058-4.042c.044-.975.207-1.504.344-1.857.182-.467.399-.86.793-1.254.393-.393.787-.61 1.254-.793.353-.137.882-.3 1.857-.344C9.013 3.45 9.303 3.44 12 3.44zm0 5.85a3.71 3.71 0 100 7.42 3.71 3.71 0 000-7.42zm0 5.98a2.27 2.27 0 110-4.54 2.27 2.27 0 010 4.54zm5.02-6.23a.88.88 0 100 1.76.88.88 0 000-1.76z" clip-rule="evenodd" /></svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-gray-600">
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-gray-600">
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.536 2.536 0 01-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.536 2.536 0 01-1.768-1.768C2 15.255 2 12 2 12s0-3.255.418-4.814a2.536 2.536 0 011.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418zM9.75 15.5V8.5l6.5 3.5-6.5 3.5z" clip-rule="evenodd" /></svg>
+                            </a>
+                          </div>
+                         <div class="text-center sm:text-right space-y-1">
+                             <p>서울특별시 영등포구 여의도동</p>
+                             <p>대표 이준석 | 고유번호 413-82-71411 | 연락처 02-6788-2093</p>
+                             <p class="pt-1 font-semibold">디자인 테스트용 페이지 입니다. 개혁신당의 정식 홈페이지가 아닙니다!</p>
+                         </div>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="to-top-button" title="Go to top" class="hidden fixed bottom-5 right-5 p-3 bg-custom-orange text-white rounded-full shadow-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300 opacity-0 transform translate-y-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+        </svg>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 데이터 정의 ---
+            // 시도당 데이터를 객체로 관리하여 유지보수를 용이하게 합니다.
+            const leadershipData = {
+                "서울특별시당": {
+                    members: [
+                        { name: '이경선', title: '서울특별시당 위원장<br>서대문구 갑', imageUrl: 'https://i.imgur.com/HRm6bqB.png' },
+                        { name: '김민철', title: '마포구 을', imageUrl: 'https://i.imgur.com/l8klGAI.png' },
+                        { name: '김성열', title: '양천구 갑', imageUrl: 'https://i.imgur.com/nNlkzd8.png' },
+                        { name: '김철근', title: '강서구 병', imageUrl: 'https://i.imgur.com/pVWVbmp.jpeg' },
+                        { name: '나상철', title: '송파구 병', imageUrl: null },
+                        { name: '류영석', title: '금천구', imageUrl: null },
+                        { name: '송재열', title: '송파구 을', imageUrl: 'https://www.newsdream.kr/news/photo/202402/54622_25509_1839.jpg' },
+                        { name: '윤혜영', title: '중구·성동구 갑', imageUrl: 'https://i.imgur.com/5rsXzQY.png' },
+                        { name: '이용우', title: '강동구 을', imageUrl: 'https://i.imgur.com/QJ7FqHZ.png' },
+                        { name: '이유원', title: '동작구 을', imageUrl: 'https://i.imgur.com/u4p03Rs.png' },
+                        { name: '이주영', title: '송파구 갑', imageUrl: 'https://i.imgur.com/3KVUsSc.png' },
+                        { name: '이현구', title: '관악구 을', imageUrl: 'https://i.imgur.com/HH1Uj9O.jpeg' },
+                        { name: '이혜숙', title: '관악구 갑', imageUrl: 'https://i.imgur.com/EL7mXJT.png' },
+                        { name: '정재원', title: '성북구 을', imageUrl: 'https://i.imgur.com/31zyP5H.jpeg' },
+                    ]
+                },
+                "부산광역시당": {
+                    members: [
+                        { name: '이재웅', title: '부산광역시당 위원장<br>동래구', imageUrl: 'https://i.imgur.com/T8Uqrhh.png' },
+                        { name: '박성국', title: '사하구 갑', imageUrl: null },
+                        { name: '배기석', title: '북구 갑', imageUrl: 'https://i.imgur.com/Q4H9QnL.png' },
+                        { name: '심헌우', title: '기장군', imageUrl: 'https://i.imgur.com/JzrDQCK.png' },
+                    ]
+                },
+                "대구광역시당": {
+                    members: [
+                        { name: '김서희', title: '대구시당 위원장 대행<br>동구·군위군 갑', imageUrl: 'https://i.imgur.com/DjDtFIq.png' },
+                        { name: '우성원', title: '달성군', imageUrl: null },
+                        { name: '장대환', title: '수성구 갑', imageUrl: null },
+                        { name: '조장우', title: '중구·남구', imageUrl: null },
+                    ]
+                },
+                "광주광역시당": {
+                    members: [
+                        { name: '최현수', title: '광주광역시당 위원장<br>서구 을', imageUrl: 'https://i.imgur.com/DHPPKv0.png' },
+                        { name: '박진우', title: '동구·남구 을', imageUrl: 'https://i.imgur.com/23AkMMy.png' },
+                    ]
+                },
+                "대전광역시당": {
+                    members: [
+                        { name: '권중순', title: '대전광역시당 위원장<br>중구', imageUrl: 'https://i.imgur.com/H3bdvzM.png' },
+                        { name: '조동운', title: '서구 을', imageUrl: 'https://i.imgur.com/vqENXLG.png' },
+                    ]
+                },
+                "경기도당": {
+                    members: [
+                        { name: '김미리', title: '경기도당 위원장', imageUrl: 'https://i.imgur.com/3VszGnx.png' },
+                        { name: '구혁모', title: '화성시 병', imageUrl: 'https://www.jeonmae.co.kr/news/photo/202205/888921_580967_115.jpg' },
+                        { name: '송창훈', title: '용인시 정', imageUrl: 'https://i.imgur.com/nyz5TLP.png' },
+                        { name: '안만규', title: '남양주시 을', imageUrl: 'https://i.imgur.com/BnfaObP.png' },
+                        { name: '유시진', title: '용인시 을', imageUrl: 'https://www.yonginilbo.com/data/photos/20240311/art_17102102328267_1e83fa.jpg' },
+                        { name: '이준석', title: '화성시 을', imageUrl: 'https://i.imgur.com/hbWpMSX.png' },
+                        { name: '전성균', title: '화성시 정', imageUrl: 'https://i.imgur.com/ewoZAeE.png' },
+                        { name: '정희윤', title: '수원시 갑', imageUrl: 'https://i.imgur.com/h5lKG8x.png' },
+                    ]
+                },
+                "충청남도당": {
+                    members: [
+                        { name: '이성진', title: '충청남도당 위원장<br>천안시 병', imageUrl: 'https://i.imgur.com/fhvCeFW.png' },
+                        { name: '김기회', title: '홍성군·예산군', imageUrl: 'https://i.imgur.com/wtWVaX6.jpeg' },
+                        { name: '이은창', title: '공주시·부여군·청양군', imageUrl: 'https://i.imgur.com/DIQFWjR.png' },
+                    ]
+                },
+                "경상북도당": {
+                    members: [
+                        { name: '황재선', title: '경상북도당 위원장<br>영주시·영양군·봉화군', imageUrl: 'https://i.imgur.com/qIDFivj.png' },
+                        { name: '김봉환', title: '포항시 남구·울릉군', imageUrl: null },
+                        { name: '김성조', title: '포항시 북구', imageUrl: 'https://i.imgur.com/qvFq8zR.png' },
+                        { name: '류태하', title: '구미시 을', imageUrl: null },
+                        { name: '이주복', title: '안동시·예천군', imageUrl: null },
+                    ]
+                },
+                "세종특별자치시 창당준비위원회": {
+                    members: [
+                        { name: '하헌휘', title: '세종시 갑', imageUrl: 'https://i.imgur.com/WS9FFOU.png' },
+                    ]
+                },
+                "제주특별자치도 창당준비위원회": {
+                    members: [
+                        { name: '양해두', title: '제주시 갑', imageUrl: 'https://cpmadang.org/sites/default/files/100146098.JPG' },
+                    ]
+                },
+                "경상남도, 전라남도": {
+                    members: [
+                        { name: '김범준', title: '거제시', imageUrl: 'https://i.imgur.com/FEu6Kn2.png' },
+                        { name: '김효훈', title: '양산시 갑', imageUrl: 'https://i.imgur.com/r8EXL44.png' },
+                        { name: '천하람', title: '순천·광양·곡성·구례 갑', imageUrl: 'https://i.imgur.com/B0rxU1T.png' },
+                    ]
+                },
+            };
+
+            // --- 데이터 정렬 함수 ---
+            /**
+             * 직책 문자열에서 지역구 이름만 추출합니다.
+             * @param {string} title - 직책 문자열 (예: '서울특별시당 위원장<br>서대문구 갑' 또는 '마포구 을')
+             * @returns {string} - 지역구 이름 (예: '서대문구 갑' 또는 '마포구 을')
+             */
+            function getDistrict(title) {
+                const parts = title.split('<br>');
+                return parts[parts.length - 1].trim();
+            }
+
+            function sortMembers() {
+                for (const sectionTitle in leadershipData) {
+                    const section = leadershipData[sectionTitle];
+                    if (!section.members || section.members.length <= 1) {
+                        continue; // 정렬할 멤버가 1명 이하이면 건너뜁니다.
+                    }
+
+                    // "경상남도, 전라남도" 섹션 특별 처리
+                    if (sectionTitle === "경상남도, 전라남도") {
+                        let cheonharam = null;
+                        const others = [];
+
+                        // 천하람 위원장과 나머지 멤버를 분리합니다.
+                        for (const member of section.members) {
+                            if (member.name === '천하람') {
+                                cheonharam = member;
+                            } else {
+                                others.push(member);
+                            }
+                        }
+                        
+                        // 나머지 멤버들을 지역구 가나다순으로 정렬합니다.
+                        others.sort((a, b) => {
+                            const districtA = getDistrict(a.title);
+                            const districtB = getDistrict(b.title);
+                            return districtA.localeCompare(districtB, 'ko');
+                        });
+                        
+                        // 천하람 위원장이 있으면 마지막에 추가하여 리스트를 재구성합니다.
+                        if (cheonharam) {
+                            section.members = [...others, cheonharam];
+                        } else {
+                            section.members = others;
+                        }
+
+                        continue; // 다음 섹션으로 넘어갑니다.
+                    }
+                    
+                    // 나머지 섹션에 대한 일반 정렬 로직
+                    const chairpersonIndex = section.members.findIndex(m => m.title.includes('위원장') || m.title.includes('대행'));
+                    
+                    if (chairpersonIndex !== -1) {
+                        // 위원장이 있으면, 그 멤버를 배열에서 분리합니다.
+                        const chairperson = section.members.splice(chairpersonIndex, 1)[0];
+                        
+                        // 나머지 멤버들을 지역구 가나다순으로 정렬합니다.
+                        section.members.sort((a, b) => {
+                            const districtA = getDistrict(a.title);
+                            const districtB = getDistrict(b.title);
+                            return districtA.localeCompare(districtB, 'ko');
+                        });
+                        
+                        // 위원장을 다시 배열의 맨 앞에 추가합니다.
+                        section.members.unshift(chairperson); 
+                    } else {
+                        // 위원장이 없는 섹션은 전체 멤버를 지역구 가나다순으로 정렬합니다.
+                        section.members.sort((a, b) => {
+                            const districtA = getDistrict(a.title);
+                            const districtB = getDistrict(b.title);
+                            return districtA.localeCompare(districtB, 'ko');
+                        });
+                    }
+                }
+            }
+
+
+            // --- 렌더링 함수 ---
+            
+            /**
+             * 멤버 카드 HTML 문자열을 생성합니다.
+             * @param {object} member - 멤버 정보 객체 {name, title, imageUrl}
+             * @returns {string} - 생성된 HTML 문자열
+             */
+            function createMemberCard(member) {
+                // 직책이 긴 경우 폰트 크기를 조절합니다.
+                const titleClass = member.title.includes('<br>') || member.title.length > 5 ? "text-sm sm:text-base" : "text-base sm:text-lg";
+                
+                let imageHtml;
+                if (member.imageUrl) {
+                    const placeholderUrl = `https://placehold.co/400x560/E2E8F0/475569?text=${encodeURIComponent(member.name)}`;
+                    imageHtml = `<img src="${member.imageUrl}" alt="${member.name} ${member.title.replace('<br>', ' ')} 사진" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='${placeholderUrl}';">`;
+                } else {
+                    imageHtml = `
+                        <div class="w-full h-full bg-gray-300 flex items-center justify-center">
+                            <span class="text-gray-500 font-bold text-xl">준비중</span>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="bg-white p-2 border-2 border-custom-orange rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 flex flex-col">
+                        <div class="mb-2 bg-custom-orange text-white text-center py-1 rounded-sm flex items-center justify-center" style="min-height: 40px;">
+                            <span class="${titleClass} font-bold">${member.title}</span>
+                        </div>
+                        <div class="w-full h-56 sm:h-72 bg-gray-200 rounded-md overflow-hidden">
+                            ${imageHtml}
+                        </div>
+                        <div class="mt-2 text-center">
+                            <p class="text-xl sm:text-2xl font-bold text-gray-800 tracking-widest">${member.name}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            /**
+             * 지도부 섹션 전체를 렌더링합니다.
+             */
+            function renderLeadershipSections() {
+                const container = document.getElementById('leadership-sections');
+                if (!container) return;
+                
+                let allSectionsHtml = '';
+
+                for (const sectionTitle in leadershipData) {
+                    const sectionData = leadershipData[sectionTitle];
+                    let memberCardsHtml = '';
+                    
+                    const gridClasses = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8';
+
+                    if (sectionData.members) {
+                        // 단일 그룹 멤버 렌더링
+                        const justifyClass = sectionData.isCentered ? 'flex justify-center' : gridClasses;
+                        const membersHtml = sectionData.members.map(createMemberCard).join('');
+                        memberCardsHtml = `<div class="${justifyClass}">${sectionData.isCentered ? `<div class="w-full max-w-xs sm:w-64">${membersHtml}</div>` : membersHtml}</div>`;
+                    } else if (sectionData.groups) {
+                        // 다중 그룹 멤버 렌더링
+                        memberCardsHtml = sectionData.groups.map(group =>
+                            `<div class="${gridClasses} ${sectionData.groups.indexOf(group) > 0 ? 'mt-4 md:mt-8' : ''}">${group.map(createMemberCard).join('')}</div>`
+                        ).join('');
+                    }
+
+                    allSectionsHtml += `
+                        <div>
+                            <div class="bg-custom-orange text-white py-3 px-6 rounded-t-lg">
+                                <h2 class="text-xl sm:text-2xl font-semibold">${sectionTitle}</h2>
+                            </div>
+                            <div class="bg-white p-4 sm:p-6 md:p-8 rounded-b-lg shadow-md">
+                                ${memberCardsHtml}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML = allSectionsHtml;
+            }
+
+            // --- 이벤트 리스너 ---
+
+            // 모바일 메뉴 토글 스크립트
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('open');
+                });
+            }
+
+            // Back to Top 버튼 스크립트
+            const toTopButton = document.getElementById('to-top-button');
+            if (toTopButton) {
+                window.onscroll = function() {
+                    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                        toTopButton.classList.remove('hidden', 'opacity-0', 'translate-y-2');
+                    } else {
+                        toTopButton.classList.add('opacity-0', 'translate-y-2');
+                        setTimeout(() => toTopButton.classList.add('hidden'), 300); // Wait for transition to finish
+                    }
+                };
+
+                toTopButton.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            // --- 초기화 ---
+            sortMembers(); // 데이터를 렌더링하기 전에 정렬
+            renderLeadershipSections();
+        });
+    </script>
+</body>
+</html>
