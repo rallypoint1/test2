@@ -145,6 +145,7 @@
                 <!-- 페이지 헤더 -->
                 <header class="bg-custom-orange text-white p-6 sm:p-8 rounded-lg shadow-lg relative overflow-hidden">
                     <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold">시·도당 및 당원협의회</h1>
+                    <p class="mt-2 text-lg sm:text-xl text-white/90">시·도당 위원장 및 당협위원장</p>
                     <!-- 장식용 그래픽 요소 -->
                     <div class="absolute top-0 right-0 h-full w-32">
                         <div class="absolute w-48 h-48 bg-white/20 transform -rotate-45 -right-20 top-0"></div>
@@ -200,8 +201,8 @@
                         { name: '김민철', title: '마포구 을', imageUrl: 'https://i.imgur.com/l8klGAI.png' },
                         { name: '김성열', title: '양천구 갑', imageUrl: 'https://i.imgur.com/nNlkzd8.png' },
                         { name: '김철근', title: '강서구 병', imageUrl: 'https://i.imgur.com/pVWVbmp.jpeg' },
-                        { name: '나상철', title: '송파구 병', imageUrl: null },
-                        { name: '류영석', title: '금천구', imageUrl: null },
+                        { name: '나상철', title: '송파구 병', imageUrl: 'https://i.imgur.com/YkOQ6RC.png' },
+                        { name: '류영석', title: '금천구', imageUrl: 'https://i.imgur.com/U7rR9qb.png' },
                         { name: '송재열', title: '송파구 을', imageUrl: 'https://www.newsdream.kr/news/photo/202402/54622_25509_1839.jpg' },
                         { name: '윤혜영', title: '중구·성동구 갑', imageUrl: 'https://i.imgur.com/5rsXzQY.png' },
                         { name: '이용우', title: '강동구 을', imageUrl: 'https://i.imgur.com/QJ7FqHZ.png' },
@@ -215,7 +216,7 @@
                 "부산광역시당": {
                     members: [
                         { name: '이재웅', title: '부산광역시당 위원장<br>동래구', imageUrl: 'https://i.imgur.com/T8Uqrhh.png' },
-                        { name: '박성국', title: '사하구 갑', imageUrl: null },
+                        { name: '박성국', title: '사하구 갑', imageUrl: 'https://i.imgur.com/0y3rkmE.png' },
                         { name: '배기석', title: '북구 갑', imageUrl: 'https://i.imgur.com/Q4H9QnL.png' },
                         { name: '심헌우', title: '기장군', imageUrl: 'https://i.imgur.com/JzrDQCK.png' },
                     ]
@@ -223,7 +224,7 @@
                 "대구광역시당": {
                     members: [
                         { name: '김서희', title: '대구시당 위원장 대행<br>동구·군위군 갑', imageUrl: 'https://i.imgur.com/DjDtFIq.png' },
-                        { name: '우성원', title: '달성군', imageUrl: null },
+                        { name: '우성원', title: '달성군', imageUrl: 'https://i.imgur.com/7PIc0UN.png' },
                         { name: '장대환', title: '수성구 갑', imageUrl: null },
                         { name: '조장우', title: '중구·남구', imageUrl: null },
                     ]
@@ -265,7 +266,7 @@
                         { name: '김봉환', title: '포항시 남구·울릉군', imageUrl: null },
                         { name: '김성조', title: '포항시 북구', imageUrl: 'https://i.imgur.com/qvFq8zR.png' },
                         { name: '류태하', title: '구미시 을', imageUrl: null },
-                        { name: '이주복', title: '안동시·예천군', imageUrl: null },
+                        { name: '이주복', title: '안동시·예천군', imageUrl: 'https://i.imgur.com/DUhhBlH.png' },
                     ]
                 },
                 "세종특별자치시 창당준비위원회": {
@@ -276,6 +277,7 @@
                 "제주특별자치도 창당준비위원회": {
                     members: [
                         { name: '양해두', title: '제주시 갑', imageUrl: 'https://cpmadang.org/sites/default/files/100146098.JPG' },
+                        { name: '양기문', title: '서귀포', imageUrl: 'https://i.imgur.com/IusSVvW.png' },
                     ]
                 },
                 "경상남도, 전라남도": {
@@ -298,6 +300,48 @@
                 return parts[parts.length - 1].trim();
             }
 
+            /**
+             * 두 지역구를 가나다 및 갑을병정 순으로 비교합니다.
+             * @param {string} titleA - 첫 번째 멤버의 직책
+             * @param {string} titleB - 두 번째 멤버의 직책
+             * @returns {number} - 정렬 순서
+             */
+            function compareDistricts(titleA, titleB) {
+                const districtStrA = getDistrict(titleA);
+                const districtStrB = getDistrict(titleB);
+                
+                const suffixOrder = ['갑', '을', '병', '정', '무', '기', '경', '신', '임', '계'];
+
+                let nameA = districtStrA;
+                let suffixA = '';
+                const lastPartA = districtStrA.split(' ').pop();
+                if (suffixOrder.includes(lastPartA)) {
+                    nameA = districtStrA.substring(0, districtStrA.lastIndexOf(' '));
+                    suffixA = lastPartA;
+                }
+
+                let nameB = districtStrB;
+                let suffixB = '';
+                const lastPartB = districtStrB.split(' ').pop();
+                if (suffixOrder.includes(lastPartB)) {
+                    nameB = districtStrB.substring(0, districtStrB.lastIndexOf(' '));
+                    suffixB = lastPartB;
+                }
+                
+                // 1. 지역구 이름으로 비교
+                const nameCompare = nameA.localeCompare(nameB, 'ko');
+                if (nameCompare !== 0) {
+                    return nameCompare;
+                }
+
+                // 2. 지역구 이름이 같으면 갑/을/병/정 순으로 비교
+                const indexA = suffixOrder.indexOf(suffixA);
+                const indexB = suffixOrder.indexOf(suffixB);
+                
+                return indexA - indexB;
+            }
+
+
             function sortMembers() {
                 for (const sectionTitle in leadershipData) {
                     const section = leadershipData[sectionTitle];
@@ -319,12 +363,8 @@
                             }
                         }
                         
-                        // 나머지 멤버들을 지역구 가나다순으로 정렬합니다.
-                        others.sort((a, b) => {
-                            const districtA = getDistrict(a.title);
-                            const districtB = getDistrict(b.title);
-                            return districtA.localeCompare(districtB, 'ko');
-                        });
+                        // 나머지 멤버들을 정렬합니다.
+                        others.sort((a, b) => compareDistricts(a.title, b.title));
                         
                         // 천하람 위원장이 있으면 마지막에 추가하여 리스트를 재구성합니다.
                         if (cheonharam) {
@@ -335,6 +375,25 @@
 
                         continue; // 다음 섹션으로 넘어갑니다.
                     }
+
+                    // "제주특별자치도 창당준비위원회" 섹션 특별 처리
+                    if (sectionTitle === "제주특별자치도 창당준비위원회") {
+                        section.members.sort((a, b) => {
+                            const districtA = getDistrict(a.title);
+                            const districtB = getDistrict(b.title);
+                            
+                            // '제주시'가 포함된 항목을 우선순위로 둡니다.
+                            const isAJeju = districtA.includes('제주');
+                            const isBJeju = districtB.includes('제주');
+
+                            if (isAJeju && !isBJeju) return -1; // a가 제주, b는 아니면 a가 먼저
+                            if (!isAJeju && isBJeju) return 1;  // b가 제주, a는 아니면 b가 먼저
+                            
+                            // 둘 다 제주이거나 둘 다 제주가 아닌 경우, 일반적인 정렬 규칙을 따릅니다.
+                            return compareDistricts(a.title, b.title);
+                        });
+                        continue; // 다음 섹션으로 넘어갑니다.
+                    }
                     
                     // 나머지 섹션에 대한 일반 정렬 로직
                     const chairpersonIndex = section.members.findIndex(m => m.title.includes('위원장') || m.title.includes('대행'));
@@ -343,22 +402,14 @@
                         // 위원장이 있으면, 그 멤버를 배열에서 분리합니다.
                         const chairperson = section.members.splice(chairpersonIndex, 1)[0];
                         
-                        // 나머지 멤버들을 지역구 가나다순으로 정렬합니다.
-                        section.members.sort((a, b) => {
-                            const districtA = getDistrict(a.title);
-                            const districtB = getDistrict(b.title);
-                            return districtA.localeCompare(districtB, 'ko');
-                        });
+                        // 나머지 멤버들을 정렬합니다.
+                        section.members.sort((a, b) => compareDistricts(a.title, b.title));
                         
                         // 위원장을 다시 배열의 맨 앞에 추가합니다.
                         section.members.unshift(chairperson); 
                     } else {
-                        // 위원장이 없는 섹션은 전체 멤버를 지역구 가나다순으로 정렬합니다.
-                        section.members.sort((a, b) => {
-                            const districtA = getDistrict(a.title);
-                            const districtB = getDistrict(b.title);
-                            return districtA.localeCompare(districtB, 'ko');
-                        });
+                        // 위원장이 없는 섹션은 전체 멤버를 정렬합니다.
+                        section.members.sort((a, b) => compareDistricts(a.title, b.title));
                     }
                 }
             }
